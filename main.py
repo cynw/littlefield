@@ -201,7 +201,6 @@ if st.button("Run simulation"):
     st.subheader('Demand (jobs)')
     st.line_chart(job_history_df.groupby("start_time").count(), y='Name')
     st.subheader('Avg flow time (days)')
-    st.dataframe(job_history_df.groupby("start_time").mean(numeric_only=True))
     st.line_chart(job_history_df.groupby("start_time").mean(numeric_only=True), y='flow_time')
 
     wip_df = pd.DataFrame(wip_history, columns=['start_time', 'wip'])
