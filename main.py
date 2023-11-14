@@ -67,7 +67,7 @@ def job(env, name, stations):
 start_day = st.sidebar.number_input('Start day', min_value=1, max_value=MAX_DAY, value=1)
 end_day = st.sidebar.number_input('End day', min_value=1, max_value=MAX_DAY, value=1)
 
-wip_limit = st.sidebar.number_input('WIP Limit (jobs)', min_value=0, max_value=1000, value=1000)
+wip_limit = st.sidebar.number_input('WIP Limit (jobs)', min_value=0, max_value=6000, value=1000)
 
 st.sidebar.title("New Machines")
 s1 = st.sidebar.number_input('N Station 1', min_value=1, max_value=50, value=1)
@@ -201,9 +201,9 @@ if st.button("Run simulation"):
     st.subheader('Demand (jobs)')
     st.line_chart(job_history_df.groupby("start_time").count(), y='Name')
     st.subheader('Avg flow time (days)')
-    st.dataframe(job_history_df.groupby("start_time").mean())
-    st.line_chart(job_history_df.groupby("start_time").mean(), y='flow_time')
+    st.dataframe(job_history_df.groupby("start_time").mean(numeric_only=True))
+    st.line_chart(job_history_df.groupby("start_time").mean(numeric_only=True), y='flow_time')
 
     wip_df = pd.DataFrame(wip_history, columns=['start_time', 'wip'])
     st.subheader('WIP (jobs)')
-    st.line_chart(wip_df.groupby("start_time").mean(), y='wip')
+    st.line_chart(wip_df.groupby("start_time").mean(numeric_only=True), y='wip')
